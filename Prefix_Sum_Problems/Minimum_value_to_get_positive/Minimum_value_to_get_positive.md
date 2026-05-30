@@ -1,44 +1,46 @@
-# 🟢 LeetCode 1413 - Minimum Value to Get Positive Step by Step Sum
+# Minimum Starting Value for a Safe Running Total
 
-> Difficulty: Easy
->
-> Topics: Array, Prefix Sum
+**Source:** LeetCode Problem #1413
+**Difficulty:** Easy
 
----
+## Topics
 
-# 📖 Problem Statement
-
-Given an integer array `nums`, find the minimum positive integer `startValue` such that when we start with `startValue` and add the elements of the array one by one, the running sum never becomes less than `1`.
-
-Return the minimum possible value of `startValue`.
+* Array
+* Prefix Sum
+* Running Sum
 
 ---
 
-# 📝 Example 1
+# 📌 Problem Summary
 
-### Input
+You are given an integer array.
+
+Imagine you start with an unknown positive value called `startValue`.
+
+You process the array from left to right and continuously add each element to your current total.
+
+Your goal is to find the **smallest possible starting value** such that the running total never becomes smaller than `1` at any point.
+
+---
+
+# 📝 Sample Scenario
+
+Consider:
 
 ```cpp
-nums = [-3,2,-3,4,2]
+nums = [-3, 2, -3, 4, 2]
 ```
 
-### Output
-
-```cpp
-5
-```
-
-### Explanation
-
-Start with:
+Suppose we start with:
 
 ```cpp
 startValue = 5
 ```
 
-Running sums:
+Running totals:
 
-```cpp
+```text
+5
 5 + (-3) = 2
 2 + 2 = 4
 4 + (-3) = 1
@@ -46,10 +48,10 @@ Running sums:
 5 + 2 = 7
 ```
 
-Every value remains:
+The running total never drops below:
 
 ```cpp
->= 1
+1
 ```
 
 Therefore:
@@ -60,9 +62,9 @@ Answer = 5
 
 ---
 
-# 🎯 Beginner Thinking Process
+# 🎯 What Should We Notice First?
 
-Most students immediately think:
+Most beginners immediately think about:
 
 ❌ Sorting
 
@@ -72,40 +74,40 @@ Most students immediately think:
 
 ❌ Binary Search
 
-None of them solve the actual requirement.
-
-The problem repeatedly says:
+However, the problem repeatedly talks about:
 
 ```text
-Step by Step Sum
-Running Sum
-Current Total
+Running Total
+Current Sum
+Step-by-Step Sum
 ```
 
-Whenever you see these words, ask yourself:
+Whenever you see phrases like these, ask yourself:
 
 > "Do I need to know the cumulative sum up to every position?"
 
-If the answer is YES, think:
-
-✅ Prefix Sum
+If the answer is YES, Prefix Sum should immediately come to mind.
 
 ---
 
-# 🧠 Pattern Recognition
+# 🧠 How To Think When You See Array Problems
 
-When solving array problems, ask:
+This is one of the most important sections.
 
-### Question 1
+Whenever you see an array problem, ask yourself the following questions.
 
-Do I need information about previous elements?
+---
+
+## Question 1
+
+Do I need information about all previous elements?
 
 Examples:
 
 ```text
 Running Sum
 Cumulative Sum
-Total till current index
+Total Until Current Position
 ```
 
 Think:
@@ -116,7 +118,7 @@ Prefix Sum
 
 ---
 
-### Question 2
+## Question 2
 
 Do I need information about future elements?
 
@@ -128,7 +130,7 @@ Suffix Sum
 
 ---
 
-### Question 3
+## Question 3
 
 Am I searching for a continuous subarray?
 
@@ -141,9 +143,9 @@ Kadane's Algorithm
 
 ---
 
-### Question 4
+## Question 4
 
-Am I searching for pairs?
+Am I looking for pairs or triplets?
 
 Think:
 
@@ -154,19 +156,32 @@ Hashing
 
 ---
 
+## Question 5
+
+Am I repeatedly calculating sums?
+
+Think:
+
+```text
+Prefix Sum
+```
+
+---
+
 For this problem:
 
 ```text
-Running Sum ✅
-Subarray ❌
-Pairs ❌
-Sorting ❌
+Running Sum        ✅
+Subarray           ❌
+Pairs              ❌
+Sorting            ❌
+Searching          ❌
 ```
 
 Therefore:
 
 ```text
-Prefix Sum is the natural choice.
+Prefix Sum is the natural pattern.
 ```
 
 ---
@@ -176,12 +191,12 @@ Prefix Sum is the natural choice.
 Let's examine:
 
 ```cpp
-nums = [-3,2,-3,4,2]
+nums = [-3, 2, -3, 4, 2]
 ```
 
 Running sums:
 
-```cpp
+```text
 -3
 -1
 -4
@@ -189,33 +204,30 @@ Running sums:
 2
 ```
 
-Notice something important:
+Notice something important.
 
-The answer depends entirely on the lowest running sum.
-
-We don't care about:
+The answer does NOT depend on:
 
 ```text
 Largest Element
 Smallest Element
 Sorted Order
-Pairs
-Subarrays
+Maximum Sum
 ```
 
-We only care about:
+Instead, the answer depends on:
 
 ```text
-The minimum running sum
+The lowest running sum
 ```
 
-Running sums are exactly:
+Running sums are exactly what Prefix Sums represent.
+
+Therefore:
 
 ```text
-Prefix Sums
+Prefix Sum is the correct tool.
 ```
-
-Therefore Prefix Sum is the correct tool.
 
 ---
 
@@ -233,10 +245,10 @@ Examples:
 
 ```text
 Maximum Sum Subarray
-Longest Substring
+Longest Substring Problems
 ```
 
-This problem never asks about subarrays.
+This problem never asks us to find a subarray.
 
 Therefore:
 
@@ -248,7 +260,7 @@ Sliding Window ❌
 
 # ❌ Why Not Two Pointers?
 
-Two pointers are useful when dealing with:
+Two Pointers are useful when dealing with:
 
 ```text
 Pairs
@@ -264,7 +276,7 @@ Two Sum II
 Container With Most Water
 ```
 
-This problem has none of these.
+This problem contains none of these requirements.
 
 Therefore:
 
@@ -280,7 +292,8 @@ Binary Search is useful when:
 
 ```text
 Data is sorted
-Answer space is monotonic
+Search space exists
+Monotonic answer exists
 ```
 
 This problem does not require searching.
@@ -298,7 +311,7 @@ Binary Search ❌
 Suppose:
 
 ```cpp
-nums = [-3,2,-3,4,2]
+nums = [-3, 2, -3, 4, 2]
 ```
 
 Start with:
@@ -307,9 +320,9 @@ Start with:
 startValue = x
 ```
 
-Running sums become:
+Running totals become:
 
-```cpp
+```text
 x - 3
 x - 1
 x - 4
@@ -323,11 +336,11 @@ Every value must satisfy:
 >= 1
 ```
 
-The worst point occurs when the prefix sum becomes minimum.
+The worst point occurs where the running total is smallest.
 
-Prefix sums:
+Let's compute the Prefix Sums.
 
-```cpp
+```text
 -3
 -1
 -4
@@ -335,53 +348,57 @@ Prefix sums:
 2
 ```
 
-Minimum prefix:
+Minimum Prefix Sum:
 
-```cpp
+```text
 -4
 ```
 
-Requirement:
+This is the most dangerous point.
 
-```cpp
-x + (-4) >= 1
-```
-
-Therefore:
-
-```cpp
-x >= 5
-```
-
-Answer:
-
-```cpp
-5
-```
+If we can survive this point, we can survive every other point.
 
 ---
 
 # 💡 Mathematical Insight
 
-We need:
+At the lowest point:
 
-```cpp
+```text
+startValue + minimumPrefix >= 1
+```
+
+Substituting:
+
+```text
+startValue + (-4) >= 1
+```
+
+Therefore:
+
+```text
+startValue >= 5
+```
+
+General Formula:
+
+```text
 startValue + minimumPrefix >= 1
 ```
 
 Rearranging:
 
-```cpp
+```text
 startValue >= 1 - minimumPrefix
 ```
 
 Therefore:
 
-```cpp
+```text
 Answer = 1 - minimumPrefix
 ```
 
-This is the entire solution.
+This single formula solves the entire problem.
 
 ---
 
@@ -398,7 +415,7 @@ startValue = 3
 ...
 ```
 
-Keep testing until a valid value is found.
+Keep checking until a valid value is found.
 
 ---
 
@@ -408,14 +425,15 @@ Keep testing until a valid value is found.
 class Solution {
 public:
 
-    bool valid(vector<int>& nums, int start) {
+    bool isValid(vector<int>& nums, int startValue) {
 
-        int sum = start;
+        int current = startValue;
 
         for(int num : nums) {
-            sum += num;
 
-            if(sum < 1)
+            current += num;
+
+            if(current < 1)
                 return false;
         }
 
@@ -424,14 +442,14 @@ public:
 
     int minStartValue(vector<int>& nums) {
 
-        int start = 1;
+        int startValue = 1;
 
         while(true) {
 
-            if(valid(nums, start))
-                return start;
+            if(isValid(nums, startValue))
+                return startValue;
 
-            start++;
+            startValue++;
         }
     }
 };
@@ -439,14 +457,14 @@ public:
 
 ---
 
-## Complexity
+## Complexity Analysis
 
-| Metric | Value    |
-| ------ | -------- |
-| Time   | O(k × n) |
-| Space  | O(1)     |
+| Metric | Complexity |
+| ------ | ---------- |
+| Time   | O(k × n)   |
+| Space  | O(1)       |
 
-where `k` is the answer.
+Where `k` is the answer.
 
 ---
 
@@ -454,16 +472,14 @@ where `k` is the answer.
 
 ## Idea
 
-Find:
+Instead of testing every possible starting value:
 
-```cpp
-Minimum Prefix Sum
-```
+1. Compute all Prefix Sums.
+2. Find the minimum Prefix Sum.
+3. Apply:
 
-Then use:
-
-```cpp
-Answer = 1 - Minimum Prefix
+```text
+Answer = 1 - minimumPrefix
 ```
 
 ---
@@ -498,11 +514,12 @@ Answer:
 
 ---
 
-## Code
+## Optimal Code
 
 ```cpp
 class Solution {
 public:
+
     int minStartValue(vector<int>& nums) {
 
         int prefix = 0;
@@ -525,14 +542,23 @@ public:
 
 # ⚡ Complexity Analysis
 
-| Metric           | Value |
-| ---------------- | ----- |
-| Time Complexity  | O(n)  |
-| Space Complexity | O(1)  |
+| Metric | Complexity |
+| ------ | ---------- |
+| Time   | O(n)       |
+| Space  | O(1)       |
 
 ---
 
-# 🧪 Driver Code (For Local Testing)
+# 📊 Complexity Comparison
+
+| Approach             | Time     | Space |
+| -------------------- | -------- | ----- |
+| Brute Force          | O(k × n) | O(1)  |
+| Prefix Sum (Optimal) | O(n)     | O(1)  |
+
+---
+
+# 🧪 Driver Code For Local Testing
 
 ```cpp
 #include <iostream>
@@ -541,6 +567,7 @@ using namespace std;
 
 class Solution {
 public:
+
     int minStartValue(vector<int>& nums) {
 
         int prefix = 0;
@@ -560,7 +587,7 @@ public:
 
 int main() {
 
-    vector<int> nums = {-3,2,-3,4,2};
+    vector<int> nums = {-3, 2, -3, 4, 2};
 
     Solution obj;
 
@@ -571,11 +598,17 @@ int main() {
 }
 ```
 
+### Output
+
+```text
+Minimum Start Value = 5
+```
+
 ---
 
 # 🔥 Edge Cases
 
-### Single Positive Number
+## Single Positive Number
 
 ```cpp
 nums = [5]
@@ -589,7 +622,7 @@ Answer:
 
 ---
 
-### Single Negative Number
+## Single Negative Number
 
 ```cpp
 nums = [-5]
@@ -603,7 +636,7 @@ Answer:
 
 ---
 
-### All Positive Numbers
+## All Positive Numbers
 
 ```cpp
 nums = [1,2,3]
@@ -615,28 +648,37 @@ Answer:
 1
 ```
 
+Because the running total never becomes negative.
+
 ---
 
-### All Negative Numbers
+## All Negative Numbers
 
 ```cpp
 nums = [-1,-2,-3]
 ```
 
+Prefix Sums:
+
+```text
+-1
+-3
+-6
+```
+
+Minimum Prefix:
+
+```cpp
+-6
+```
+
 Answer:
 
 ```cpp
+1 - (-6)
+=
 7
 ```
-
----
-
-# 📊 Complexity Comparison
-
-| Approach             | Time     | Space |
-| -------------------- | -------- | ----- |
-| Brute Force          | O(k × n) | O(1)  |
-| Prefix Sum (Optimal) | O(n)     | O(1)  |
 
 ---
 
@@ -644,22 +686,26 @@ Answer:
 
 ✅ Running Sum → Think Prefix Sum
 
-✅ We only care about the minimum prefix value
+✅ The answer depends on the minimum Prefix Sum
 
-✅ The entire problem can be solved using:
+✅ We do not need to store the entire Prefix Sum array
 
-```cpp
-Answer = 1 - MinimumPrefix
+✅ Tracking only the current Prefix Sum and minimum Prefix Sum is enough
+
+✅ The entire problem is solved using:
+
+```text
+Answer = 1 - minimumPrefix
 ```
-
-✅ Prefix Sum is not just for range queries. It is also useful for tracking cumulative behavior of an array.
 
 ---
 
 # 🔗 Related Problems
 
-* Running Sum of 1D Array
 * Pivot Index
-* Subarray Sum Equals K
+* Running Sum of 1D Array
 * Range Sum Query
+* Subarray Sum Equals K
 * Continuous Subarray Sum
+
+These problems also rely heavily on Prefix Sum concepts.
